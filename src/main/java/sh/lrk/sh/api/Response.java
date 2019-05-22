@@ -37,6 +37,10 @@ public final class Response {
         this(body, code, TEXT_HTML, false, null);
     }
 
+    public Response(String body, String code, String contentType) {
+        this (body, code, contentType, false);
+    }
+
     public Response(String body, String code, String contentType, boolean addAllow) {
         this(body, code, contentType, addAllow, null);
     }
@@ -76,7 +80,7 @@ public final class Response {
 
     public static Response getGenericErrorResponse(Request req) {
         return new Response("Nothing found for url '" + req.getUrl() + "' with method '" + req.getMethod() + "'!",
-                Response.NOT_FOUND, TEXT_PLAIN, false);
+                Response.NOT_FOUND, TEXT_PLAIN);
     }
 
     public static Response fromFile(Request req, String path) {
@@ -102,7 +106,7 @@ public final class Response {
         }
         res = new StringBuilder(replaceRequestAttribute(res.toString(), req));
         if (path.endsWith(".css")) {
-            return new Response(res.toString(), OK, "text/css", false);
+            return new Response(res.toString(), OK, "text/css");
         } else {
             return new Response(res.toString());
         }

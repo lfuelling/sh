@@ -7,9 +7,7 @@ import sh.lrk.sh.DatabaseManager;
 import sh.lrk.sh.RandomString;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URLDecoder;
+import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
@@ -38,17 +36,26 @@ public class ResolverResponse implements IResponse {
             }
 
             if (value.isEmpty()) {
-                return new Response("URL may not be empty!", Response.BAD_REQUEST, Response.TEXT_PLAIN, false);
+                return new Response("URL may not be empty!", Response.BAD_REQUEST, Response.TEXT_PLAIN);
             }
 
             try {
-                new URI(value);
-            } catch (URISyntaxException e) {
-                return new Response("URL invalid!\n" + e.getMessage(), Response.BAD_REQUEST, Response.TEXT_PLAIN, false);
+                value = URLDecoder.decode(value, StandardCharsets.UTF_8.name());
+            } catch (UnsupportedEncodingException e) {
+                log.warn("Unable to decode url: '" + value + "'!", e);
+                return new Response("Unable to parse url '" + value + "':\n\t" + e.getMessage(),
+                        Response.BAD_REQUEST, Response.TEXT_PLAIN);
             }
 
             try {
-                databaseManager.saveUrl(key, URLDecoder.decode(value, StandardCharsets.UTF_8.name()));
+                new URL(value);
+            } catch (MalformedURLException e) {
+                return new Response("URL '" + value + "' is invalid!\n" + e.getMessage(),
+                        Response.BAD_REQUEST, Response.TEXT_PLAIN);
+            }
+
+            try {
+                databaseManager.saveUrl(key, value);
             } catch (SQLException e) {
                 log.error("Unable to save url: '" + value + "' with key: '" + key + "'!", e);
                 if (e.getMessage().contains(DUPLICATE_URL_ERROR_MSG)) {
@@ -58,22 +65,18 @@ public class ResolverResponse implements IResponse {
                         log.error("Unable to look up key for url: '" + value + "' but it seems to be existing!", ex);
                         return new Response("Unable to save url:\n\t" + e.getMessage() +
                                 "\nError looking up already existing url!\n\t" + ex.getMessage(),
-                                Response.INTERNAL_SERVER_ERROR, Response.TEXT_PLAIN, false);
+                                Response.INTERNAL_SERVER_ERROR, Response.TEXT_PLAIN);
                     }
                 } else {
                     return new Response("Unable to save url:\n\t" + e.getMessage(),
-                            Response.INTERNAL_SERVER_ERROR, Response.TEXT_PLAIN, false);
+                            Response.INTERNAL_SERVER_ERROR, Response.TEXT_PLAIN);
                 }
-            } catch (UnsupportedEncodingException e) {
-                log.warn("Unable to decode url: '" + value + "'!", e);
-                return new Response("Unable to parse url '" + value + "':\n\t" + e.getMessage(),
-                        Response.BAD_REQUEST, Response.TEXT_PLAIN, false);
             }
 
             return new Response("OK!\nURL '" + value + "' was saved as '" + key + "'!");
         } else {
             return new Response("You need to enter the correct password for this to work!",
-                    Response.UNAUTHORIZED, Response.TEXT_PLAIN, false);
+                    Response.UNAUTHORIZED, Response.TEXT_PLAIN);
         }
     }
 }

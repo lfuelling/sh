@@ -34,7 +34,7 @@ public class Main {
         Routes routes = new Routes();
         routes.add("GET", "/", "html/landing.html");
         routes.add("GET", "/style.css", "html/style.css");
-        routes.add("GET", "/favicon.ico", req -> new Response("Not Found!", Response.NOT_FOUND, Response.TEXT_PLAIN, false));
+        routes.add("GET", "/favicon.ico", req -> new Response("Not Found!", Response.NOT_FOUND, Response.TEXT_PLAIN));
         routes.add("POST", "/", new ResolverResponse(configManager, databaseManager));
 
         log.info("Starting Server...");

@@ -51,7 +51,7 @@ public final class Server {
     }
 
     private Response getResponse(Request req) {
-        if (req != null && req.getMethod() != null) {
+        if (req.getMethod() != null) {
             if (req.getMethod().equals("GET") || req.getMethod().equals("POST")) {
                 IResponse mappedResponse = routes.get(req.getMethod() + "_" + req.getUrl());
                 if (mappedResponse == null) {
@@ -75,8 +75,8 @@ public final class Server {
                         Response.METHOD_NOT_ALLOWED, Response.TEXT_PLAIN, true);
             }
         } else {
-            return new Response("Request or Method is null!\n\n" + req.getRaw(),
-                    Response.INTERNAL_SERVER_ERROR, Response.TEXT_PLAIN, false);
+            return new Response("Method is null!\n\n" + req.getRaw(),
+                    Response.INTERNAL_SERVER_ERROR, Response.TEXT_PLAIN);
         }
     }
 
