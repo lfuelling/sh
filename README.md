@@ -1,4 +1,4 @@
-# SH
+# SH [![Build Status](https://travis-ci.org/lfuelling/sh.svg?branch=master)](https://travis-ci.org/lfuelling/sh) [![CI is overrated](https://img.shields.io/badge/ci-broken-green.svg)](https://docs.travis-ci.com/user/encryption-keys/)
 
 Link shorten service.
 
