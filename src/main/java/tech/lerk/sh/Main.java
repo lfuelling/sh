@@ -47,24 +47,5 @@ public class Main {
 
         ServerThread server = new ServerThread(routes, configManager, databaseManager);
         new Thread(server, "ServerThread").start();
-
-        Scanner sc = new Scanner(System.in);
-        System.out.println("\nType 'stop' to stop!\n");
-        while (true) {
-            try {
-                String line = sc.nextLine();
-                if (line.equals("stop")) {
-                    server.stop();
-                    System.exit(0);
-                } else {
-                    log.warn("Invalid input '" + line + "'! Type 'stop' to stop!");
-                }
-            } catch (NoSuchElementException e) {
-                log.warn("It seems like this application is running in a non-interactive shell. Kill this process to stop.");
-                //noinspection InfiniteLoopStatement,StatementWithEmptyBody
-                while (true) {
-                }
-            }
-        }
     }
 }

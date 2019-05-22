@@ -27,7 +27,7 @@ public class ResolverResponse implements IResponse {
     private final ConfigManager configManager;
     private final DatabaseManager databaseManager;
 
-    public ResolverResponse(ConfigManager configManager, DatabaseManager databaseManager) {
+    ResolverResponse(ConfigManager configManager, DatabaseManager databaseManager) {
         this.configManager = configManager;
         this.databaseManager = databaseManager;
     }

@@ -9,14 +9,18 @@ Link shorten service.
     - `docker-compose.yml`
 2. (Optional) Change the look and feel:
     - `src/main/resources/html/style.css`
-3. Build the application: `docker-compose build`
-4. Start the application: `docker-compose up`
+3. Create the data directory:
+    - `$ mkdir data`
+3. Build the application:
+    - `$ docker-compose build`
+4. Start the application: 
+    - `docker-compose up`
 
 The application will run on port `8082`, you can change this in the `docker-compose.yml` file.
 
 ## Developing
 
-1. Don't change the passwords!
+1. Don't change the db password (without updating the command below)!
 2. Build the project using any (Java) IDE
 3. Run the database:
     - `docker run -it -v "$(pwd)/db:/docker-entrypoint-initdb.d" -p 5432:5432 -e POSTGRES_PASSWORD=changemebabychangeme postgres:alpine`

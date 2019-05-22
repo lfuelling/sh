@@ -8,6 +8,7 @@ services:
       POSTGRES_PASSWORD: changemebabychangeme
     volumes:
       - ./db:/docker-entrypoint-initdb.d:consistent
+      - ./data:/var/lib/postgresql/data:consistent
 
   sh:
     build: .
