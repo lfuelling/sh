@@ -1,4 +1,4 @@
-package sh.lrk.sh;
+package tech.lerk.sh;
 
 import java.security.SecureRandom;
 import java.util.Locale;

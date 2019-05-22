@@ -1,10 +1,7 @@
-package sh.lrk.sh;
+package tech.lerk.sh;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sh.lrk.sh.api.ResolverResponse;
-import sh.lrk.sh.api.Response;
-import sh.lrk.sh.api.Routes;
 
 import java.sql.SQLException;
 import java.util.NoSuchElementException;

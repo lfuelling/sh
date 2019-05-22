@@ -1,0 +1,22 @@
+language: java
+jdk: oraclejdk8
+
+env:
+  global:
+
+
+jobs:
+  allow_failures:
+    - stage: test
+  include:
+    - stage: build
+      script:
+        - mvn clean install -B -V -DskipTests
+        - mkdir deploy
+        - cp -v "target/$(ls target | grep jar-with-dependencies.jar)" deploy/sh.jar
+        - mvn javadoc:javadoc
+        - .util/pages.sh
+
+    - stage: test
+      script:
+        - mvn clean install -B -V

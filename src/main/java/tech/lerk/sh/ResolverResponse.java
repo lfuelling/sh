@@ -1,10 +1,7 @@
-package sh.lrk.sh.api;
+package tech.lerk.sh;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sh.lrk.sh.ConfigManager;
-import sh.lrk.sh.DatabaseManager;
-import sh.lrk.sh.RandomString;
 
 import java.io.UnsupportedEncodingException;
 import java.net.*;

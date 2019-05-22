@@ -1,4 +1,4 @@
-package sh.lrk.sh.api;
+package tech.lerk.sh;
 
 import java.util.HashMap;
 

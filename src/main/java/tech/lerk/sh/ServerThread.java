@@ -1,10 +1,7 @@
-package sh.lrk.sh;
+package tech.lerk.sh;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sh.lrk.sh.api.Request;
-import sh.lrk.sh.api.Routes;
-import sh.lrk.sh.api.Server;
 
 import java.io.IOException;
 

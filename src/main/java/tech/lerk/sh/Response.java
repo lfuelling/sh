@@ -1,4 +1,4 @@
-package sh.lrk.sh.api;
+package tech.lerk.sh;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
