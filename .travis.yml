@@ -3,6 +3,7 @@ jdk: oraclejdk8
 
 env:
   global:
+    secure: "hnPnNqsbdB28rSUPR9qmIwR8BvIX53IIX/l8F3lw90K0iWdIMbOOf7ZvlNVouzrFqsraeXxJfoPHjazVhqaD5qU1i42G8xbKPULJhzu7x+J6oCJPh+etsaZrFg3ksPOri5AFU5ohHUDEsDDqnCOGH23cCu/2d5dXqws8vNf6WNJQMccbkg0tJqsDTIb0ODnyrMXYz1Twd6e7FQdT2imVLyhqc9SXGOH9f1Cju126VOZYhR8S6j1eQIVNqx9Gw6dp8tbPkVvduovJjS5IJuW7CviwBmHRg9AWtogmt2/C91CeW22m/YI7gSqKWam7PTk9fkfDJIMLPZcBb/+SlI9fbRnR7DKZJ4G8fXJfMkkDVqJLU3cN8BsW0o6mYGTUXcp7/MqxNeo37lJexnaLbPCo6LSZvqn5yimrjIZOKdQA+J6JX8nBfaCdqhyt+Rz4jJiYkKDwhcQOkTrfGeSkXu+xGbUMDeYIYRWYoyrVFYOGG5n77ZaEHb2HYcAeDONQIybXD8QVmhkx/4kkuC3LDi0zSYvQFDcn2KkTsyf7uYdL1Ev7kWTnvfZo2sktAPco/+bWxd0qyFlI8bXDCh/UBi/LaPxwa0hF9Qc2DpPBNEZMt3D9mY570EaIy2LctwP04f7Izhezl/7/nXaft4AOSc2mt6f1t51xDWTdbI/ZOCqwhuY="
 
 
 jobs:
@@ -16,6 +17,16 @@ jobs:
         - cp -v "target/$(ls target | grep jar-with-dependencies.jar)" deploy/sh.jar
         - mvn javadoc:javadoc
         - .util/pages.sh
+      deploy:
+        provider: releases
+        api_key:
+          secure: hnPnNqsbdB28rSUPR9qmIwR8BvIX53IIX/l8F3lw90K0iWdIMbOOf7ZvlNVouzrFqsraeXxJfoPHjazVhqaD5qU1i42G8xbKPULJhzu7x+J6oCJPh+etsaZrFg3ksPOri5AFU5ohHUDEsDDqnCOGH23cCu/2d5dXqws8vNf6WNJQMccbkg0tJqsDTIb0ODnyrMXYz1Twd6e7FQdT2imVLyhqc9SXGOH9f1Cju126VOZYhR8S6j1eQIVNqx9Gw6dp8tbPkVvduovJjS5IJuW7CviwBmHRg9AWtogmt2/C91CeW22m/YI7gSqKWam7PTk9fkfDJIMLPZcBb/+SlI9fbRnR7DKZJ4G8fXJfMkkDVqJLU3cN8BsW0o6mYGTUXcp7/MqxNeo37lJexnaLbPCo6LSZvqn5yimrjIZOKdQA+J6JX8nBfaCdqhyt+Rz4jJiYkKDwhcQOkTrfGeSkXu+xGbUMDeYIYRWYoyrVFYOGG5n77ZaEHb2HYcAeDONQIybXD8QVmhkx/4kkuC3LDi0zSYvQFDcn2KkTsyf7uYdL1Ev7kWTnvfZo2sktAPco/+bWxd0qyFlI8bXDCh/UBi/LaPxwa0hF9Qc2DpPBNEZMt3D9mY570EaIy2LctwP04f7Izhezl/7/nXaft4AOSc2mt6f1t51xDWTdbI/ZOCqwhuY=
+        file_glob: true
+        file: deploy/sh.jar
+        skip_cleanup: true
+        on:
+          repo: lfuelling/sh
+          tags: true
 
     - stage: test
       script:

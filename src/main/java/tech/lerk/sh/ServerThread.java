@@ -5,8 +5,16 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
+/**
+ * Class that represents the thread the server is running on.
+ *
+ * @author Lukas Fülling (lukas@k40s.net)
+ */
 class ServerThread implements Runnable {
 
+    /**
+     * Logger.
+     */
     private static final Logger log = LoggerFactory.getLogger(ServerThread.class);
 
     private boolean shouldStop = false;

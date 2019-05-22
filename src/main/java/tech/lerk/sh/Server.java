@@ -10,8 +10,16 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
 
-public final class Server {
+/**
+ * Class that represents the server.
+ *
+ * @author Lukas Fülling (lukas@k40s.net)
+ */
+final class Server {
 
+    /**
+     * Logger.
+     */
     private static final Logger log = LoggerFactory.getLogger(Server.class);
 
     private ServerSocket socket;
@@ -20,14 +28,14 @@ public final class Server {
     private final ConfigManager configManager;
     private final DatabaseManager databaseManager;
 
-    public Server(Routes routes, ConfigManager configManager, DatabaseManager databaseManager) throws IOException {
+    Server(Routes routes, ConfigManager configManager, DatabaseManager databaseManager) throws IOException {
         socket = new ServerSocket(configManager.getPort());
         this.routes = routes;
         this.configManager = configManager;
         this.databaseManager = databaseManager;
     }
 
-    public Request accept() throws IOException {
+    Request accept() throws IOException {
         client = socket.accept();
         InputStream is = client.getInputStream();
         StringBuilder raw = new StringBuilder();
@@ -44,7 +52,7 @@ public final class Server {
         return new Request(raw.toString());
     }
 
-    public void close() throws IOException {
+    void close() throws IOException {
         socket.close();
     }
 
@@ -73,12 +81,12 @@ public final class Server {
                         Response.METHOD_NOT_ALLOWED, Response.TEXT_PLAIN, true);
             }
         } else {
-            return new Response("Method is null!\n\n" + req.getRaw(),
+            return new Response("Method is null!\n\n" + req.toString(),
                     Response.INTERNAL_SERVER_ERROR, Response.TEXT_PLAIN);
         }
     }
 
-    public void sendResponse(Request req) throws IOException {
+    void sendResponse(Request req) throws IOException {
         Response resp = getResponse(req);
         try (OutputStream out = client.getOutputStream()) {
             out.write(resp.toString().getBytes());

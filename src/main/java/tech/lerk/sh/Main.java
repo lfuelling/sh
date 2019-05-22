@@ -7,9 +7,18 @@ import java.sql.SQLException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+/**
+ * Main class.
+ *
+ * @author Lukas Fülling (lukas@k40s.net)
+ */
 public class Main {
 
+    /**
+     * Logger.
+     */
     private static final Logger log = LoggerFactory.getLogger(Main.class);
+
     private static DatabaseManager databaseManager;
     private static ConfigManager configManager;
 

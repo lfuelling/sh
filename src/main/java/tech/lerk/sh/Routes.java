@@ -2,11 +2,22 @@ package tech.lerk.sh;
 
 import java.util.HashMap;
 
-public class Routes {
+/**
+ * Class that holds all the routes.
+ *
+ * @author Lukas Fülling (lukas@k40s.net)
+ */
+class Routes {
 
+    /**
+     * The routes.
+     */
     private final HashMap<String, IResponse> routes;
 
-    public Routes() {
+    /**
+     * Constructor.
+     */
+    Routes() {
         routes = new HashMap<>();
     }
 
@@ -14,11 +25,11 @@ public class Routes {
         return routes.get(key);
     }
 
-    public void add(String method, String url, IResponse resp) {
+    void add(String method, String url, IResponse resp) {
         routes.put(method + "_" + url, resp);
     }
 
-    public void add(String method, String url, String filepath) {
+    void add(String method, String url, String filepath) {
         routes.put(method + "_" + url, req -> Response.fromFile(req, filepath));
     }
 

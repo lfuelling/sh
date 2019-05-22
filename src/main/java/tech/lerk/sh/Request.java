@@ -3,17 +3,22 @@ package tech.lerk.sh;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public final class Request {
+/**
+ * Class that represents a request.
+ *
+ * @author Lukas Fülling (lukas@k40s.net)
+ */
+final class Request {
 
     private String req;
     private String method = null;
     private String url = null;
     private String httpVersion = null;
-    private HashMap<String, String> attributes;
+    private HashMap<String, String> attrs;
 
-    public Request(String req) {
+    Request(String req) {
         this.req = req;
-        attributes = new HashMap<>();
+        attrs = new HashMap<>();
         parse();
     }
 
@@ -41,12 +46,14 @@ public final class Request {
         }
     }
 
-    public Iterator getAttributeIterator() {
-        return attributes.keySet().iterator();
+    Iterator getAttributeIterator() {
+        return attrs.keySet().iterator();
     }
 
     private void setAttributes(String rawAttributes) {
         String[] attribs = rawAttributes.split("&");
+
+        //noinspection ForLoopReplaceableByForEach
         for (int i = 0; i < attribs.length; i++) {
             String[] attr = attribs[i].split("=");
             if (attr.length == 2) {
@@ -55,35 +62,31 @@ public final class Request {
         }
     }
 
-    public String getAttribute(String key) {
-        String ret = attributes.get(key);
+    String getAttribute(String key) {
+        String ret = attrs.get(key);
         if (ret == null) {
             return "null";
         }
         return ret;
     }
 
-    public void setAttribute(String key, String value) {
-        attributes.put(key, value);
+    private void setAttribute(String key, String value) {
+        attrs.put(key, value);
     }
 
-    public String getMethod() {
+    String getMethod() {
         return method;
     }
 
-    public String getHttpVersion() {
+    String getHttpVersion() {
         return httpVersion;
     }
 
-    public String getUrl() {
+    String getUrl() {
         return url;
     }
 
     public String toString() {
-        return req;
-    }
-
-    public String getRaw() {
         return req;
     }
 }

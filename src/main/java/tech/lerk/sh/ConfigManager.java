@@ -8,8 +8,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class ConfigManager {
+/**
+ * Utility class to read the configuration file.
+ *
+ * @author Lukas Fülling (lukas@k40s.net)
+ */
+class ConfigManager {
 
+    /**
+     * Logger.
+     */
     private static final Logger log = LoggerFactory.getLogger(ConfigManager.class);
 
     private int port = 8080; // default value
@@ -19,7 +27,7 @@ public class ConfigManager {
     private String dbPassword = "";
     private String appPassword = "howdoyouturnthison"; // default value
 
-    public ConfigManager() {
+    ConfigManager() {
         try (InputStream in = getClass().getClassLoader().getResourceAsStream("server.properties")) {
             Properties properties = new Properties();
             properties.load(in);
@@ -40,27 +48,27 @@ public class ConfigManager {
         }
     }
 
-    public int getPort() {
+    int getPort() {
         return port;
     }
 
-    public int getMaxSize() {
+    int getMaxSize() {
         return maxSize;
     }
 
-    public String getDbConnection() {
+    String getDbConnection() {
         return dbConnection;
     }
 
-    public String getDbUser() {
+    String getDbUser() {
         return dbUser;
     }
 
-    public String getDbPassword() {
+    String getDbPassword() {
         return dbPassword;
     }
 
-    public String getAppPassword() {
+    String getAppPassword() {
         return appPassword;
     }
 }

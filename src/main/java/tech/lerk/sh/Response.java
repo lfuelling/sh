@@ -11,41 +11,51 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Iterator;
 
-public final class Response {
+/**
+ * Class that represents a response.
+ * <p>
+ * Response code constants are according to
+ * https://www.w3.org/Protocols/rfc2616/rfc2616-sec6.html.
+ *
+ * @author Lukas Fülling (lukas@k40s.net)
+ */
+final class Response {
 
-    // https://www.w3.org/Protocols/rfc2616/rfc2616-sec6.html
-    public static final String OK = "200 OK";
-    public static final String TEMPORARY_REDIRECT = "307 Temporary Redirect";
-    public static final String BAD_REQUEST = "400 Bad Request ";
-    public static final String UNAUTHORIZED = "401 Unauthorized";
-    public static final String NOT_FOUND = "404 Not Found";
-    public static final String METHOD_NOT_ALLOWED = "405 Method Not Allowed";
-    public static final String INTERNAL_SERVER_ERROR = "500 Internal Server Error";
+    static final String OK = "200 OK";
+    static final String TEMPORARY_REDIRECT = "307 Temporary Redirect";
+    static final String BAD_REQUEST = "400 Bad Request ";
+    static final String UNAUTHORIZED = "401 Unauthorized";
+    static final String NOT_FOUND = "404 Not Found";
+    static final String METHOD_NOT_ALLOWED = "405 Method Not Allowed";
+    static final String INTERNAL_SERVER_ERROR = "500 Internal Server Error";
 
-    public static final String TEXT_HTML = "text/html";
-    public static final String TEXT_PLAIN = "text/plain";
+    static final String TEXT_HTML = "text/html";
+    static final String TEXT_PLAIN = "text/plain";
 
+    /**
+     * Logger.
+     */
     private static final Logger log = LoggerFactory.getLogger(Response.class);
 
     private final String body;
 
-    public Response(String body) {
+    Response(String body) {
         this(body, Response.OK);
     }
 
-    public Response(String body, String code) {
+    Response(String body, String code) {
         this(body, code, TEXT_HTML, false, null);
     }
 
-    public Response(String body, String code, String contentType) {
-        this (body, code, contentType, false);
+    Response(String body, String code, String contentType) {
+        this(body, code, contentType, false);
     }
 
-    public Response(String body, String code, String contentType, boolean addAllow) {
+    Response(String body, String code, String contentType, boolean addAllow) {
         this(body, code, contentType, addAllow, null);
     }
 
-    public Response(String body, String code, String contentType, boolean addAllow, String location) {
+    Response(String body, String code, String contentType, boolean addAllow, String location) {
         Date date = new Date();
         String start = "HTTP/1.1 " + code + "\r\n";
         String header = "Date: " + date.toString() + "\r\n";
@@ -78,12 +88,12 @@ public final class Response {
         return res;
     }
 
-    public static Response getGenericErrorResponse(Request req) {
+    static Response getGenericErrorResponse(Request req) {
         return new Response("Nothing found for url '" + req.getUrl() + "' with method '" + req.getMethod() + "'!",
                 Response.NOT_FOUND, TEXT_PLAIN);
     }
 
-    public static Response fromFile(Request req, String path) {
+    static Response fromFile(Request req, String path) {
         StringBuilder res = new StringBuilder();
         try {
             ClassLoader classLoader = Response.class.getClassLoader();

@@ -4,12 +4,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
-import java.net.*;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
+/**
+ * Response that tries to find a URL for a given key/path.
+ *
+ * @author Lukas Fülling (lukas@k40s.net)
+ */
 public class ResolverResponse implements IResponse {
 
+    /**
+     * Logger.
+     */
     private static final Logger log = LoggerFactory.getLogger(ResolverResponse.class);
 
     private static final String DUPLICATE_URL_ERROR_MSG = "ERROR: duplicate key value violates unique constraint \"mappings_value_uindex\"";
