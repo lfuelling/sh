@@ -43,7 +43,7 @@ public class ResolverResponse implements IResponse {
             }
 
             if (value.isEmpty()) {
-                return new Response("URL may not be empty!", Response.BAD_REQUEST, Response.TEXT_PLAIN);
+                return new Response("URL may not be empty!", Response.BAD_REQUEST);
             }
 
             try {
@@ -51,14 +51,14 @@ public class ResolverResponse implements IResponse {
             } catch (UnsupportedEncodingException e) {
                 log.warn("Unable to decode url: '" + value + "'!", e);
                 return new Response("Unable to parse url '" + value + "':\n\t" + e.getMessage(),
-                        Response.BAD_REQUEST, Response.TEXT_PLAIN);
+                        Response.BAD_REQUEST);
             }
 
             try {
                 new URL(value);
             } catch (MalformedURLException e) {
                 return new Response("URL '" + value + "' is invalid!\n" + e.getMessage(),
-                        Response.BAD_REQUEST, Response.TEXT_PLAIN);
+                        Response.BAD_REQUEST);
             }
 
             try {
@@ -72,18 +72,18 @@ public class ResolverResponse implements IResponse {
                         log.error("Unable to look up key for url: '" + value + "' but it seems to be existing!", ex);
                         return new Response("Unable to save url:\n\t" + e.getMessage() +
                                 "\nError looking up already existing url!\n\t" + ex.getMessage(),
-                                Response.INTERNAL_SERVER_ERROR, Response.TEXT_PLAIN);
+                                Response.INTERNAL_SERVER_ERROR);
                     }
                 } else {
                     return new Response("Unable to save url:\n\t" + e.getMessage(),
-                            Response.INTERNAL_SERVER_ERROR, Response.TEXT_PLAIN);
+                            Response.INTERNAL_SERVER_ERROR);
                 }
             }
 
             return new Response("OK!\nURL '" + value + "' was saved as '" + key + "'!");
         } else {
             return new Response("You need to enter the correct password for this to work!",
-                    Response.UNAUTHORIZED, Response.TEXT_PLAIN);
+                    Response.UNAUTHORIZED);
         }
     }
 }

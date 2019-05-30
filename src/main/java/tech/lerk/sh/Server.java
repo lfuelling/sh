@@ -65,7 +65,8 @@ final class Server {
                     try {
                         String urlForKey = databaseManager.getUrlForKey(key);
                         if (urlForKey != null && !urlForKey.isEmpty()) {
-                            return new Response("You are being redirected...",
+                            String message = "You are being redirected...";
+                            return new Response(message.getBytes(),
                                     Response.TEMPORARY_REDIRECT, Response.TEXT_PLAIN, false, urlForKey);
                         }
                     } catch (DatabaseManager.NoResultException e) {
@@ -77,7 +78,8 @@ final class Server {
                 }
                 return mappedResponse.getResponse(req);
             } else {
-                return new Response("Method '" + req.getMethod() + "' is not allowed!",
+                String message = "Method '" + req.getMethod() + "' is not allowed!";
+                return new Response(message.getBytes(),
                         Response.METHOD_NOT_ALLOWED, Response.TEXT_PLAIN, true);
             }
         } else {
@@ -89,7 +91,7 @@ final class Server {
     void sendResponse(Request req) throws IOException {
         Response resp = getResponse(req);
         try (OutputStream out = client.getOutputStream()) {
-            out.write(resp.toString().getBytes());
+            out.write(resp.getResponseBytes());
         }
     }
 
