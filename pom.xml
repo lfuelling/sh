@@ -6,7 +6,7 @@
 
     <groupId>tech.lerk</groupId>
     <artifactId>sh</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.2</version>
 
     <description>
         Password protected link shorten service.
