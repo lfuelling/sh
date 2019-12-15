@@ -40,7 +40,7 @@ form input {
     border-radius: 5px;
     height: 37px;
     padding: 8px;
-    width: 302px;
+    width: 95%;
 }
 
 form label {
@@ -55,12 +55,25 @@ form button {
     transition: background-color 0.2s ease-in-out;
     margin-top: 16px !important;
     font-weight: 500;
-    width: 320px;
+    width: 100%;
 }
 
 form button:hover {
-    background-color: rgba(128, 128, 255, 0.2);
+    background-color: rgba(128, 128, 255, 1);
+    color: #fff;
     cursor: pointer;
+}
+
+.content a,
+.content a:hover,
+.content a:visited,
+.content a:active,
+.content a:focus,
+.content a:focus-within {
+    color: #000;
+    font-family: sans-serif;
+    text-decoration: none;
+    border-bottom: 1px dotted #000;
 }
 
 body {
