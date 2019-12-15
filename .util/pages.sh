@@ -4,16 +4,16 @@ if [[ "$TRAVIS_REPO_SLUG" == "lfuelling/sh" ]] && [[ "$TRAVIS_JDK_VERSION" == "o
 
   echo -e "Publishing javadoc...\n"
 
-  cp -R target/site/apidocs $HOME/javadoc-latest
+  cp -R target/site/apidocs "${HOME}"/javadoc-latest
 
-  cd $HOME
+  cd "${HOME}" || exit 1
   git config --global user.email "travis@travis-ci.org"
   git config --global user.name "travis-ci"
-  git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/lfuelling/sh gh-pages > /dev/null
+  git clone --quiet --branch=gh-pages https://"${GH_TOKEN}"@github.com/lfuelling/sh gh-pages > /dev/null
 
-  cd gh-pages
+  cd gh-pages || exit 1
   git rm -rf ./javadoc
-  cp -Rf $HOME/javadoc-latest ./javadoc
+  cp -Rf "${HOME}"/javadoc-latest ./javadoc
   git add -f .
   git commit -m "Latest javadoc for travis build $TRAVIS_BUILD_NUMBER auto-pushed to gh-pages"
   git push -fq origin gh-pages > /dev/null
