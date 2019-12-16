@@ -18,6 +18,8 @@ Link shorten service.
 
 The application will run on port `8082`, you can change this in the `docker-compose.yml` file.
 
+If you need/want an example configuration for NGINX [look no further](https://github.com/lfuelling/sh/blob/master/nginx.site.conf).
+
 ## Developing
 
 1. Don't change the db password (without updating the command below)!
