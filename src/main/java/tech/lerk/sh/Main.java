@@ -40,6 +40,7 @@ public class Main {
         Routes routes = new Routes();
         routes.add("GET", "/", "html/landing.html");
         routes.add("GET", "/style.css", "html/style.css");
+        routes.add("GET", "/lib.js", "html/lib.js");
         routes.add("GET", "/favicon.ico", "images/favicon.ico");
         routes.add("GET", "/background.jpg", "images/background.jpg");
         routes.add("POST", "/", new ResolverResponse(configManager, databaseManager));

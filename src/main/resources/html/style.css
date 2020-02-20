@@ -7,12 +7,7 @@ html {
 
 .content {
     margin: auto;
-    background-color: rgba(255, 255, 255, 0.2);
     padding: 48px;
-    border-radius: 5px;
-    -webkit-box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.2);
-    box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.2);
 }
 
 form input,
@@ -20,6 +15,7 @@ form label,
 form button {
     display: block;
     margin-top: 8px;
+    font-family: monospace;
 }
 
 form {
@@ -30,36 +26,48 @@ form {
 
 h2 {
     font-weight: 100;
-    font-family: sans-serif;
+    font-family: monospace;
 }
 
 form input {
-    margin-top: 2px !important;
-    background-color: transparent;
-    border: 1px solid rgba(128, 128, 255, 1);
-    border-radius: 5px;
-    height: 37px;
+    margin-top: 3px;
+    margin-bottom: 8px !important;
     padding: 8px;
     width: 95%;
+    border: 1px none;
+}
+
+form input:focus,
+form input:active {
+    margin-top: 2px;
+    border: 1px solid;
 }
 
 form label {
-    font-family: sans-serif;
+    margin-bottom: 8px;
+    margin-top: 8px;
+}
+
+form button,
+form input {
+    color: #fff;
+    height: 37px;
+    background-color: transparent;
+    border-bottom-style: solid;
+    border-radius: 0;
+    min-height: 37px;
 }
 
 form button {
-    background-color: transparent;
-    border: 1px solid rgba(128, 128, 255, 1);
-    border-radius: 5px;
-    min-height: 37px;
     transition: background-color 0.2s ease-in-out;
     margin-top: 16px !important;
     font-weight: 500;
     width: 100%;
+    border: 1px solid;
 }
 
 form button:hover {
-    background-color: rgba(128, 128, 255, 1);
+    background-color: transparent;
     color: #fff;
     cursor: pointer;
 }
@@ -70,18 +78,19 @@ form button:hover {
 .content a:active,
 .content a:focus,
 .content a:focus-within {
-    color: #000;
+    color: #fff;
     width: 100%;
     margin-top: 16px;
     text-align: center;
     display: inline-block;
-    font-family: sans-serif;
+    font-family: monospace;
     text-decoration-line: underline;
     text-decoration-style: dotted;
 }
 
 body {
-    background-image: url("/background.jpg");
+    color: #fff;
+    background-color: #000;
     background-size: cover;
     background-repeat: no-repeat;
 }
