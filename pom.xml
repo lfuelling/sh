@@ -204,6 +204,7 @@
                     <show>protected</show>
                     <nohelp>true</nohelp>
                     <doclint>none</doclint>
+                    <source>8</source>
                 </configuration>
             </plugin>
             <plugin>
