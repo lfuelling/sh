@@ -87,7 +87,7 @@ public class ResolverResponse implements IResponse {
                                 "\n\nError looking up already existing url!\n\t" + ex.getMessage()),
                                 Status.INTERNAL_SERVER_ERROR, ContentType.TEXT_HTML);
                     } catch (IOException ex) {
-                        log.error("Unable to render response!");
+                        log.error("Unable to render response!", e);
                         return new Response(applyErrorTemplate("Unable to save url:\n\t" + e.getMessage() +
                                 "\n\nError looking up already existing url!\n\t" + ex.getMessage()),
                                 Status.INTERNAL_SERVER_ERROR, ContentType.TEXT_HTML);
@@ -98,7 +98,13 @@ public class ResolverResponse implements IResponse {
                 }
             }
 
-            return new Response("OK!\nURL '" + value + "' was saved as '" + key + "'!");
+            try {
+                return new Response(handlebars.compile("html/saved").apply(key),
+                        Status.OK, ContentType.TEXT_HTML);
+            } catch (IOException e) {
+                log.error("Unable to render response!", e);
+                return new Response("Link was saved as: '/" + key + "'!");
+            }
         } else {
             return new Response(applyErrorTemplate("You entered an incorrect password!"),
                     Status.UNAUTHORIZED, ContentType.TEXT_HTML);

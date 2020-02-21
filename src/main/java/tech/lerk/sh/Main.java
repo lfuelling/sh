@@ -59,7 +59,7 @@ public class Main {
                             ContentType.TEXT_PLAIN, headers);
                 }
             } catch (DatabaseManager.NoResultException e) {
-                log.info("No value found for key: '" + key + "'!");
+                log.info("No value found for key: '" + key + "'!", e);
             } catch (SQLException e) {
                 log.error("Unable to resolve key: '" + key + "'!", e);
             }
@@ -69,7 +69,7 @@ public class Main {
                 return new Response(template.apply("Not Found!"),
                         Status.NOT_FOUND, ContentType.TEXT_HTML);
             } catch (IOException e) {
-                log.error("Unable to render error!");
+                log.error("Unable to render response!", e);
                 return new Response("Not Found!",
                         Status.NOT_FOUND, ContentType.TEXT_HTML);
             }
