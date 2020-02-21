@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ "$TRAVIS_REPO_SLUG" == "lfuelling/sh" ]] && [[ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ]] && [[ "$TRAVIS_PULL_REQUEST" == "false" ]] && [[ "$TRAVIS_BRANCH" == "master" ]]; then
+if [[ "$TRAVIS_REPO_SLUG" == "lfuelling/sh" ]] && [[ "$TRAVIS_JDK_VERSION" == "openjdk11" ]] && [[ "$TRAVIS_PULL_REQUEST" == "false" ]] && [[ "$TRAVIS_BRANCH" == "master" ]]; then
 
   echo -e "Publishing javadoc...\n"
 
