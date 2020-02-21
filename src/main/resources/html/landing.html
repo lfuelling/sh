@@ -12,16 +12,17 @@
 <body>
 <div class="content">
     <h2>Please fill out the form below!</h2>
-    <form action="/" method="post">
+    <form action="/" method="post" autocomplete="off">
         <label for="key">Key (optional, will be generated if empty):</label>
-        <input class="r" type="text" id="key" name="key" maxlength="16" placeholder="aBcDeF"/>
+        <input class="r" type="text" id="key" name="key" maxlength="16" placeholder="aBcDeF" autocomplete="none"/>
 
         <label for="value">URL to shorten:</label>
         <input class="r" type="text" id="value" name="value" minlength="1" maxlength="255"
-               placeholder="https://example.com"/>
+               placeholder="https://example.com" autocomplete="none"/>
 
         <label for="password">Password:</label>
-        <input class="r" type="password" id="password" name="password" minlength="1" placeholder="password"/>
+        <input class="r" type="password" id="password" name="password" minlength="1" placeholder="password"
+               autocomplete="none"/>
 
         <button class="r" type="submit">Shorten</button>
     </form>
@@ -31,9 +32,10 @@
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function () {
         const color = '#' + Math.floor(Math.random() * 16777215).toString(16),
+            complementary = hexToComplementary(color),
             css = '.r, .r:active, .r:focus { border-color: ' + color + '!important; }' +
                 '.r:focus { outline: ' + color + '!important; }' +
-                'button.r:focus, button.r:hover { background-color: ' + color + '!important; color: ' + hexToComplementary(color) + '!important; };',
+                'button.r:focus, button.r:hover { background-color: ' + color + '!important; color: ' + complementary + '!important; };',
             head = document.head || document.getElementsByTagName('head')[0],
             style = document.createElement('style');
         head.appendChild(style);
