@@ -101,12 +101,12 @@ body {
 
 h1.error {
     font-family: monospace;
-    font-weight: 700;
+    font-weight: 500;
     color: #f00;
 }
 
 h1.info {
     font-family: monospace;
-    font-weight: 700;
+    font-weight: 500;
     color: #fff;
 }

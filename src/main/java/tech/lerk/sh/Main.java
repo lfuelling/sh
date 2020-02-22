@@ -23,12 +23,11 @@ public class Main {
     private static final Logger log = LoggerFactory.getLogger(Main.class);
 
     private static DatabaseManager databaseManager;
-    private static ConfigManager configManager;
 
     public static void main(String[] args) {
 
         log.info("Loading configuration...");
-        configManager = new ConfigManager();
+        ConfigManager configManager = new ConfigManager();
 
         log.info("Preparing db...");
         try {
@@ -52,11 +51,10 @@ public class Main {
             try {
                 String urlForKey = databaseManager.getUrlForKey(key);
                 if (urlForKey != null && !urlForKey.isEmpty()) {
-                    String message = "You are being redirected...";
                     HashMap<String, String> headers = new HashMap<>();
                     headers.put("Location", urlForKey);
-                    return new Response(message.getBytes(), Status.TEMPORARY_REDIRECT,
-                            ContentType.TEXT_PLAIN, headers);
+                    return new Response("You are being redirected...".getBytes(),
+                            Status.TEMPORARY_REDIRECT, ContentType.TEXT_PLAIN, headers);
                 }
             } catch (DatabaseManager.NoResultException e) {
                 log.info("No value found for key: '" + key + "'!", e);

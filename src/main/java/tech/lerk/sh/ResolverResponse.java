@@ -15,7 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
 /**
- * Response that tries to find a URL for a given key/path.
+ * Response that saves a new entry.
  *
  * @author Lukas Fülling (lukas@k40s.net)
  */
