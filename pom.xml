@@ -39,7 +39,7 @@
     <repositories>
         <repository>
             <id>gammel</id>
-            <url>https://nexus.gammel.cloud/repository/maven-releases/</url>
+            <url>https://nexus.gammel.cloud/repository/maven-public/</url>
         </repository>
     </repositories>
 
