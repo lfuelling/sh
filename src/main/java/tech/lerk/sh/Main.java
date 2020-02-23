@@ -5,10 +5,17 @@ import com.github.jknack.handlebars.Template;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sh.lrk.yahs.*;
+import tech.lerk.sh.managers.ConfigManager;
+import tech.lerk.sh.managers.DatabaseManager;
+import tech.lerk.sh.responses.ColorCssResponse;
+import tech.lerk.sh.responses.NewEntryResponse;
+import tech.lerk.sh.responses.ResolverResponse;
 
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Random;
 
 /**
  * Main class.
@@ -23,6 +30,12 @@ public class Main {
     private static final Logger log = LoggerFactory.getLogger(Main.class);
 
     private static DatabaseManager databaseManager;
+
+    private static final SecureRandom random = new SecureRandom();
+
+    public static SecureRandom getRandom() {
+        return random;
+    }
 
     public static void main(String[] args) {
 
@@ -42,36 +55,11 @@ public class Main {
         Routes routes = new Routes();
         routes.add(Method.GET, "/", "html/landing.html");
         routes.add(Method.GET, "/style.css", "css/style.css");
-        routes.add(Method.GET, "/lib.js", "js/lib.js");
         routes.add(Method.GET, "/favicon.ico", "images/favicon.ico");
         routes.add(Method.GET, "/background.jpg", "images/background.jpg");
-        routes.add(Method.POST, "/", new ResolverResponse(configManager, databaseManager));
-        routes.addCatchAll(req -> {
-            String key = req.getUrl().replaceFirst("/", "");
-            try {
-                String urlForKey = databaseManager.getUrlForKey(key);
-                if (urlForKey != null && !urlForKey.isEmpty()) {
-                    HashMap<String, String> headers = new HashMap<>();
-                    headers.put("Location", urlForKey);
-                    return new Response("You are being redirected...".getBytes(),
-                            Status.TEMPORARY_REDIRECT, ContentType.TEXT_PLAIN, headers);
-                }
-            } catch (DatabaseManager.NoResultException e) {
-                log.info("No value found for key: '" + key + "'!", e);
-            } catch (SQLException e) {
-                log.error("Unable to resolve key: '" + key + "'!", e);
-            }
-            try {
-                Handlebars handlebars = new Handlebars();
-                Template template = handlebars.compile("html/error");
-                return new Response(template.apply("Not Found!"),
-                        Status.NOT_FOUND, ContentType.TEXT_HTML);
-            } catch (IOException e) {
-                log.error("Unable to render response!", e);
-                return new Response("Not Found!",
-                        Status.NOT_FOUND, ContentType.TEXT_HTML);
-            }
-        });
+        routes.add(Method.POST, "/", new NewEntryResponse(configManager, databaseManager));
+        routes.add(Method.GET, "/colors.css", new ColorCssResponse());
+        routes.addCatchAll(new ResolverResponse(databaseManager));
 
         log.info("Starting Server...");
 

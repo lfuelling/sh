@@ -11,12 +11,12 @@ import java.util.Random;
  * @author erickson (https://stackoverflow.com/a/41156/1979736)
  * @author Lukas Fülling (lukas@k40s.net)
  */
-class RandomString {
+public class RandomString {
 
     /**
      * Generate a random string.
      */
-    String nextString() {
+    public String nextString() {
         for (int idx = 0; idx < buf.length; ++idx)
             buf[idx] = symbols[random.nextInt(symbols.length)];
         return new String(buf);
@@ -48,13 +48,15 @@ class RandomString {
     /**
      * Create an alphanumeric string generator.
      */
-    RandomString(int length, Random random) {
+    public RandomString(int length, Random random) {
         this(length, random, alphanum);
     }
 
     /**
      * Create an alphanumeric strings from a secure generator.
+     * @deprecated use constructor with provided random
      */
+    @Deprecated
     RandomString(int length) {
         this(length, new SecureRandom());
     }

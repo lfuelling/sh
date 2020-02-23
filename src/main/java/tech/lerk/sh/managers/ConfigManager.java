@@ -1,4 +1,4 @@
-package tech.lerk.sh;
+package tech.lerk.sh.managers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +13,7 @@ import java.util.Properties;
  *
  * @author Lukas Fülling (lukas@k40s.net)
  */
-class ConfigManager {
+public class ConfigManager {
 
     /**
      * Logger.
@@ -27,7 +27,7 @@ class ConfigManager {
     private String dbPassword = "";
     private String appPassword = "howdoyouturnthison"; // default value
 
-    ConfigManager() {
+    public ConfigManager() {
         try (InputStream in = getClass().getClassLoader().getResourceAsStream("server.properties")) {
             Properties properties = new Properties();
             properties.load(in);
@@ -48,27 +48,27 @@ class ConfigManager {
         }
     }
 
-    int getPort() {
+    public int getPort() {
         return port;
     }
 
-    int getMaxSize() {
+    public int getMaxSize() {
         return maxSize;
     }
 
-    String getDbConnection() {
+    public String getDbConnection() {
         return dbConnection;
     }
 
-    String getDbUser() {
+    public String getDbUser() {
         return dbUser;
     }
 
-    String getDbPassword() {
+    public String getDbPassword() {
         return dbPassword;
     }
 
-    String getAppPassword() {
+    public String getAppPassword() {
         return appPassword;
     }
 }

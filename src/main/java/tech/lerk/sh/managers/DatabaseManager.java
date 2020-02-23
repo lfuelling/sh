@@ -1,4 +1,4 @@
-package tech.lerk.sh;
+package tech.lerk.sh.managers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +10,7 @@ import java.sql.*;
  *
  * @author Lukas Fülling (lukas@k40s.net)
  */
-class DatabaseManager {
+public class DatabaseManager {
 
     /**
      * Logger.
@@ -19,12 +19,12 @@ class DatabaseManager {
 
     private final Connection connection;
 
-    DatabaseManager(String url, String user, String password) throws SQLException {
+    public DatabaseManager(String url, String user, String password) throws SQLException {
         log.info("Connecting to database...");
         connection = DriverManager.getConnection(url, user, password);
     }
 
-    String getUrlForKey(String key) throws SQLException {
+    public String getUrlForKey(String key) throws SQLException {
         String sql = "SELECT VALUE FROM sh.mappings WHERE key = ?;";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, key);
@@ -36,7 +36,7 @@ class DatabaseManager {
         }
     }
 
-    void saveUrl(String key, String url) throws SQLException {
+    public void saveUrl(String key, String url) throws SQLException {
         String sql = "INSERT INTO sh.mappings (KEY, VALUE) VALUES (?, ?);";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, key);
@@ -44,7 +44,7 @@ class DatabaseManager {
         preparedStatement.executeUpdate();
     }
 
-    String getKeyForUrl(String url) throws SQLException {
+    public String getKeyForUrl(String url) throws SQLException {
         String sql = "SELECT KEY FROM sh.mappings WHERE value = ?;";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, url);
@@ -56,7 +56,7 @@ class DatabaseManager {
         }
     }
 
-    static class NoResultException extends SQLException {
+    public static class NoResultException extends SQLException {
         NoResultException(String message) {
             super(message);
         }

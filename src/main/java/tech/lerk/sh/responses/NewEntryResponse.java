@@ -1,10 +1,14 @@
-package tech.lerk.sh;
+package tech.lerk.sh.responses;
 
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sh.lrk.yahs.*;
+import tech.lerk.sh.Main;
+import tech.lerk.sh.RandomString;
+import tech.lerk.sh.managers.ConfigManager;
+import tech.lerk.sh.managers.DatabaseManager;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -19,12 +23,12 @@ import java.sql.SQLException;
  *
  * @author Lukas Fülling (lukas@k40s.net)
  */
-public class ResolverResponse implements IResponse {
+public class NewEntryResponse implements IResponse {
 
     /**
      * Logger.
      */
-    private static final Logger log = LoggerFactory.getLogger(ResolverResponse.class);
+    private static final Logger log = LoggerFactory.getLogger(NewEntryResponse.class);
 
     private static final String DUPLICATE_URL_ERROR_MSG = "ERROR: duplicate key value violates unique constraint \"mappings_value_uindex\"";
 
@@ -33,7 +37,7 @@ public class ResolverResponse implements IResponse {
     private final Handlebars handlebars = new Handlebars();
     private Template errorTemplate;
 
-    ResolverResponse(ConfigManager configManager, DatabaseManager databaseManager) {
+    public NewEntryResponse(ConfigManager configManager, DatabaseManager databaseManager) {
         this.configManager = configManager;
         this.databaseManager = databaseManager;
         try {
@@ -50,7 +54,7 @@ public class ResolverResponse implements IResponse {
             String value = req.getAttribute("value");
 
             if (key == null || key.isEmpty() || key.equals("null")) {
-                key = new RandomString(8).nextString();
+                key = new RandomString(8, Main.getRandom()).nextString();
             }
 
             if (value.isEmpty()) {
