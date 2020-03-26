@@ -12,7 +12,7 @@ services:
 
   sh:
     build: .
-    image: lfuelling/sh:latest
+    image: lerk/sh:latest
     restart: unless-stopped
     depends_on:
       - postgres
