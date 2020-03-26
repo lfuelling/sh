@@ -45,8 +45,3 @@ If you need/want an example configuration for NGINX [look no further](https://gi
 4. Start the application from the IDE
 
 The application will run on port `8080` by default, this can be changed in `src/main/resources/server.properties`. Note that changing this will require you to update the `docker-compose.yml`.
-
-## Third Party
-
-- [Background image](https://unsplash.com/photos/-c017F-rzew) by [unsplash/@kristimartin](https://unsplash.com/@kristimartin)
- 
