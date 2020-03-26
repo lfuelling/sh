@@ -56,7 +56,6 @@ public class Main {
         routes.add(Method.GET, "/", "html/landing.html");
         routes.add(Method.GET, "/style.css", "css/style.css");
         routes.add(Method.GET, "/favicon.ico", "images/favicon.ico");
-        routes.add(Method.GET, "/background.jpg", "images/background.jpg");
         routes.add(Method.POST, "/", new NewEntryResponse(configManager, databaseManager));
         routes.add(Method.GET, "/colors.css", new ColorCssResponse());
         routes.addCatchAll(new ResolverResponse(databaseManager));
