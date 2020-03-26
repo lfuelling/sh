@@ -11,9 +11,9 @@ Link shorten service.
     - `src/main/resources/html/style.css`
 3. Create the data directory:
     - `$ mkdir data`
-3. Build the application:
+4. Build the application:
     - `$ docker-compose build`
-4. Start the application: 
+5. Start the application: 
     - `$ docker-compose up`
 
 The application will run on port `8082`, you can change this in the `docker-compose.yml` file.
